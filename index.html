@@ -8,33 +8,48 @@
 	<input id="githubID" type="text" placeholder="Github ID">
 	<br><br>
 	<button id="ajaxButton" type="button">Get Followers!</button>
+	<br><br>
 
+	<div id="level1">
+		<hr align="left" width="25%">
+		<div id="level2">
+			<hr align="left" width="50%">
+				<div id="level3"></div>
+		</div>
+	</div>
 </body>
 <script type="text/javascript">
 (function() {
 	var httpRequest;
-	document.getElementById("ajaxButton").addEventListener('click', makeRequest);
+	var level = 0;
+	document.getElementById("ajaxButton").addEventListener('click', start);
 
-	
+	function start() {
+		var githubID = document.getElementById("githubID").value;
+		makeRequest(githubID);
+	}
 
-	function makeRequest() {
+	function makeRequest(githubID) {
 		httpRequest = new XMLHttpRequest();
 
 		if (!httpRequest) {
 		alert('Giving up :( Cannot create an XMLHTTP instance');
 		return false;
 		}
-		httpRequest.onreadystatechange = getGithubFollowers;
-		var requestURL = "https://api.github.com/users/" + document.getElementById("githubID").value + "/followers";
+		httpRequest.onreadystatechange = getResponseText;
+		var requestURL = "https://api.github.com/users/" + githubID + "/followers";
 		httpRequest.open('GET', requestURL);
 		httpRequest.send();
 	}
 
-	function getGithubFollowers() {
+	function getResponseText() {
 	    try {
 			if (httpRequest.readyState === XMLHttpRequest.DONE) {
 				if (httpRequest.status === 200) {
-					alert(httpRequest.responseText);
+					var data = JSON.parse(httpRequest.responseText);
+					console.log(data.length);
+					if (JSON.stringify(data) != '[]')
+						getGithubFollowers(data);
 				} else {
 		    		alert('There was a problem with the request.');
 				}
@@ -44,6 +59,21 @@
 			alert('Caught Exception: ' + e.description);
 		}
 	}
+
+	function getGithubFollowers(data) {
+		if (++level < 4) {
+			for (var i = 0; i < 5; i++) {
+				if (data[i]["login"] != null) {
+					document.getElementById("level" + level).innerHTML += data[i]["login"] + "<br />";
+					makeRequest(data[i]["login"]);
+				}
+				
+			}
+		}
+		else
+			level = 0;
+	}
+
 })();
 </script>
 </html>
