@@ -1,19 +1,23 @@
 {
-  "name": "CL",
+  "name": "cl_coding_challenge",
   "version": "1.0.0",
-  "description": "CL Coding Challenge",
-  "main": "index.js",
+  "description": "Get Github user info.",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vealjoshua/CL.git"
+    "url": "git+https://github.com/vealjoshua/CL.git"
   },
-  "author": "Joshua Veal-Briscoe",
+  "author": "Joshua Veal",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vealjoshua/CL/issues"
   },
-  "homepage": "https://github.com/vealjoshua/CL"
+  "homepage": "https://github.com/vealjoshua/CL#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
