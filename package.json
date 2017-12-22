@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/vealjoshua/CL#readme",
   "dependencies": {
+    "async": "^2.6.0",
     "express": "^4.16.2"
   }
 }
