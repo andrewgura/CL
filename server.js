@@ -8,24 +8,10 @@ app.get('/', function(req, res){
 
 });
 
+var firstLevelGithubFollowers = [];
+var secondLevelGithubFollowers = [];
+
 app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
-   // var usersFollowersURL = 'https://api.github.com/users/' + req.params.username + '/followers'
-   // var options = {
-   //   url: usersFollowersURL,
-   //   headers: {
-   //     'User-Agent': 'vealjoshua'
-   //   }
-   // };
-   // request.get(options, function (error, response, body) {
-   //   console.log('error:', error); // Print the error if one occurred
-   //   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-   //   res.locals.followers = JSON.parse(body)
-   //   // next()
-   // });
-
-
-
-
 
    async.waterfall ([
     function getFirstLevelGithubFollowers(callback) {
@@ -45,42 +31,14 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
 
           // res.locals.followers = JSON.parse(body)
           var jsonObj = JSON.parse(body);
-          var stack = [];
           for (var i = 0; i < jsonObj.length && i < 5; i++) {
-            stack.push(jsonObj[i]);
+            firstLevelGithubFollowers.push(jsonObj[i]);
           }
 
-          callback(null, stack);
+          callback(null, firstLevelGithubFollowers);
       });
     },
     function getSecondLevelGithubFollowers(firstGithubFollowers, callback) {
-        var secondLevelGithubFollowers = [];
-
-        // for (var i = 0; i < firstGithubFollowers.length; i++) {
-        //   firstGithubFollowers[i]
-
-        //   var usersFollowersURL = 'https://api.github.com/users/' + firstGithubFollowers[i] + '/followers';
-        //   var options = {
-        //     url: usersFollowersURL,
-        //     headers: {
-        //       'User-Agent': 'vealjoshua'
-        //     }
-        //   };
-        //   request.get(options, function(error, response, body) {
-        //       if (error) {
-        //         callback(error, null);
-        //         console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        //         return;
-        //       }
-
-        //       var jsonObj = JSON.parse(body);
-        //       for (var i = 0; i < jsonObj.length && i < 5; i++) {
-        //         stack.push(jsonObj[i]);
-        //       }
-        //   });
-        // }
-        // callback(null, stack);
-
 
         async.each(firstGithubFollowers, function(follower, callback) {
 
@@ -91,6 +49,8 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
               'User-Agent': 'vealjoshua'
             }
           };
+
+          follower.secondLevel = [];
           request.get(options, function(error, response, body) {
               if (error) {
                 callback(error, null);
@@ -100,6 +60,7 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
 
               var jsonObj = JSON.parse(body);
               for (var i = 0; i < jsonObj.length && i < 5; i++) {
+                follower.secondLevel.push(jsonObj[i]);
                 secondLevelGithubFollowers.push(jsonObj[i]);
               }
               callback();
@@ -110,7 +71,8 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
             console.log("Async each failed.");
           } else {
             console.log('Second Level\n', secondLevelGithubFollowers);
-            res.send(secondLevelGithubFollowers);
+            res.send(firstLevelGithubFollowers);
+            // res.send(secondLevelGithubFollowers);
           }
         });
 
@@ -126,34 +88,5 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
         res.send(result);
     });
 });
-
-
-// }, function(req, res, next) {
-//   // res.send(res.locals.followers)
-//   console.log(res.locals.followers.length);
-//   for (var i = 0; i < res.locals.followers.length && i < 5; i++) {
-//     var usersFollowersURL = 'https://api.github.com/users/' + res.locals.followers[i].login + '/followers'
-//     console.log(usersFollowersURL)
-//     var options = {
-//       url: usersFollowersURL,
-//       headers: {
-//         'User-Agent': 'vealjoshua'
-//       }
-//     }
-
-//     request.get(options, function (error, response, body) {
-//       console.log('error:', error); // Print the error if one occurred
-//       console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-//       if (body != null) {
-//         res.locals.followers2 = JSON.parse(body)
-//       }
-//     })
-
-//     next()
-//   }
-// }, function(req, res) {
-//   console.log("Last function: " + res.locals.followers2)
-// })
-
 
 app.listen(8080);
