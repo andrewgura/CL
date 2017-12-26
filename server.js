@@ -10,6 +10,7 @@ app.get('/', function(req, res){
 
 var firstLevelGithubFollowers = [];
 var secondLevelGithubFollowers = [];
+var thirdLevelGithubFollowers = [];
 
 app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
 
@@ -29,7 +30,7 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
           return;
         }
 
-          // res.locals.followers = JSON.parse(body)
+          firstLevelGithubFollowers = [];
           var jsonObj = JSON.parse(body);
           for (var i = 0; i < jsonObj.length && i < 5; i++) {
             firstLevelGithubFollowers.push(jsonObj[i]);
@@ -50,7 +51,7 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
             }
           };
 
-          follower.secondLevel = [];
+          follower.second_level_followers = [];
           request.get(options, function(error, response, body) {
               if (error) {
                 callback(error, null);
@@ -58,9 +59,10 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
                 return;
               }
 
+              secondLevelGithubFollowers = [];
               var jsonObj = JSON.parse(body);
               for (var i = 0; i < jsonObj.length && i < 5; i++) {
-                follower.secondLevel.push(jsonObj[i]);
+                follower.second_level_followers.push(jsonObj[i]);
                 secondLevelGithubFollowers.push(jsonObj[i]);
               }
               callback();
@@ -70,14 +72,52 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res, next){
           if (err) {
             console.log("Async each failed.");
           } else {
-            console.log('Second Level\n', secondLevelGithubFollowers);
-            res.send(firstLevelGithubFollowers);
+            // console.log('Second Level\n', secondLevelGithubFollowers);
+            // res.send(firstLevelGithubFollowers);
             // res.send(secondLevelGithubFollowers);
+            callback(null, secondLevelGithubFollowers);
           }
         });
+    },
+    function getThirdLevelGithubFollowers(secondGithubFollowers, callback) {
+        async.each(secondGithubFollowers, function(follower, callback) {
+          var usersFollowersURL = 'https://api.github.com/users/' + follower.login + '/followers';
+          var options = {
+            url: usersFollowersURL,
+            headers: {
+              'User-Agent': 'vealjoshua'
+            }
+          };
+          follower.third_level_followers = [];
+          request.get(options, function(error, response, body) {
+              if (error) {
+                callback(error, null);
+                console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+                return;
+              }
 
+              var jsonObj = JSON.parse(body);
+              for (var i = 0; i < jsonObj.length && i < 5; i++) {
+                follower.third_level_followers.push(jsonObj[i]);
+                thirdLevelGithubFollowers.push(jsonObj[i]);
+              }
 
+              callback();
+          });
+
+        }, function(err) {
+            if (err) {
+              console.log("Async each failed.");
+            } else {
+              // console.log("Third Level Function\n");
+              // res.send(secondLevelGithubFollowers);
+              console.log(firstLevelGithubFollowers);
+              res.send(firstLevelGithubFollowers);
+              // res.send(secondLevelGithubFollowers);
+            }
+        });
     }
+
     ], function(err, result) {
         if (err) {
           console.error(err);
