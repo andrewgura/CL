@@ -19,11 +19,9 @@ The bonus challenge NOT required!
 1.	You’ll need a GitHub account (which are free) to complete this coding challenge.
 2.	GitHub provides API’s for retrieving Followers, Repositories, and Stargazers.  Please see the following GitHub API documentation:
 
-a.	https://developer.github.com/v3/users/followers/ 
-
-b.	https://developer.github.com/v3/repos/
-
-c.	https://developer.github.com/v3/activity/starring/
+	a.	https://developer.github.com/v3/users/followers/ 
+	b.	https://developer.github.com/v3/repos/
+	c.	https://developer.github.com/v3/activity/starring/
 
 
 ## Invocation
@@ -34,8 +32,24 @@ Or just visit: http://get-github-followers-cl-coding-challenge.193b.starter-ca-c
 
 ### Github Followers
 
-To receive github followers 3 levels deep, append either the url with /username/followers.
+To receive the first 5 followers of a github user, 3 levels deep, append either the local url or the openshiftapps url with:
 
-e.g.
+/username/followers
 
-http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/defunkt/followers
+Where "username" is the github username.
+
+##### e.g.
+
+http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/followers
+
+### Github Repos
+
+To receive the first 5 repos of a github user, and the first 3 stargazers of the repo, append either the local url or the openshiftapps url with:
+
+/username/repos
+
+Where "username" is the github username.
+
+##### e.g.
+
+http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/repos
