@@ -19,8 +19,10 @@ The bonus challenge NOT required!
 1.	You’ll need a GitHub account (which are free) to complete this coding challenge.
 2.	GitHub provides API’s for retrieving Followers, Repositories, and Stargazers.  Please see the following GitHub API documentation:
 
-	a.	https://developer.github.com/v3/users/followers/ 
+	a.	https://developer.github.com/v3/users/followers/
+	
 	b.	https://developer.github.com/v3/repos/
+
 	c.	https://developer.github.com/v3/activity/starring/
 
 
