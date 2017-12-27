@@ -30,7 +30,7 @@ The bonus challenge NOT required!
 
 Run nodemon server.js in the home directory.
 
-Or just visit: http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com
+Or just visit: http://github-data-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com
 
 ### Github Followers
 
@@ -42,7 +42,7 @@ Where "username" is the github username.
 
 ##### e.g.
 
-http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/followers
+http://github-data-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/followers
 
 ### Github Repos
 
@@ -54,4 +54,4 @@ Where "username" is the github username.
 
 ##### e.g.
 
-http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/repos
+http://github-data-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/repos
