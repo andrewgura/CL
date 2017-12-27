@@ -20,7 +20,7 @@ The bonus challenge NOT required!
 2.	GitHub provides API’s for retrieving Followers, Repositories, and Stargazers.  Please see the following GitHub API documentation:
 
 	a.	https://developer.github.com/v3/users/followers/
-	
+
 	b.	https://developer.github.com/v3/repos/
 
 	c.	https://developer.github.com/v3/activity/starring/
@@ -46,7 +46,7 @@ http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.opensh
 
 ### Github Repos
 
-To receive the first 5 repos of a github user, and the first 3 stargazers of the repo, append either the local url or the openshiftapps url with:
+To receive the first 3 repositories of a github user, and the first 3 stargazers of the repo, append either the local url or the openshiftapps url with:
 
 /username/repos
 
