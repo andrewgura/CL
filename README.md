@@ -28,7 +28,7 @@ The bonus challenge NOT required!
 
 ## Invocation
 
-Clone the project and run nodemon server.js in the home directory.
+Clone the project and run nodemon server.js in the home directory. Up to 60 requests can be made per hour.
 
 Or just visit: http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/
 
