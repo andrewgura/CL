@@ -124,80 +124,80 @@ app.get('/:username([a-zA-Z0-9_]+)\/followers', function(req, res){
     });
 });
 
-app.get('/:username([a-zA-Z0-9_]+)\/repos', function(req, res){
-  async.waterfall ([
-    function getRepos(callback) {
-      var userReposURL = 'https://api.github.com/users/' + req.params.username + '/repos';
-      var options = {
-        url: userReposURL,
-        headers: {
-          'User-Agent': 'vealjoshua'
-        }
-      };
+// app.get('/:username([a-zA-Z0-9_]+)\/repos', function(req, res){
+//   async.waterfall ([
+//     function getRepos(callback) {
+//       var userReposURL = 'https://api.github.com/users/' + req.params.username + '/repos';
+//       var options = {
+//         url: userReposURL,
+//         headers: {
+//           'User-Agent': 'vealjoshua'
+//         }
+//       };
 
-      request.get(options, function (error, response, body) {
-        if (error) {
-          callback(error, null);
-          console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-          return;
-        }
+//       request.get(options, function (error, response, body) {
+//         if (error) {
+//           callback(error, null);
+//           console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//           return;
+//         }
 
-        userRepos = [];
-        var jsonObj = JSON.parse(body);
-        for (var i = 0; i < jsonObj.length && i < 3; i++) {
-          userRepos.push(jsonObj[i]);
-        }
+//         userRepos = [];
+//         var jsonObj = JSON.parse(body);
+//         for (var i = 0; i < jsonObj.length && i < 3; i++) {
+//           userRepos.push(jsonObj[i]);
+//         }
 
-        // res.send(userRepos);
-        callback(null, userRepos);
-      });
-    },
+//         // res.send(userRepos);
+//         callback(null, userRepos);
+//       });
+//     },
 
-    function getStarGazers(repos, callback) {
-      async.each(repos, function(repo, callback) {
+//     function getStarGazers(repos, callback) {
+//       async.each(repos, function(repo, callback) {
 
-        var userStarGazersURL = 'https://api.github.com/repos/' + req.params.username + '/' + repo.name + '/stargazers';
-        console.log(userStarGazersURL);
-          var options = {
-            url: userStarGazersURL,
-            headers: {
-              'User-Agent': 'vealjoshua'
-            }
-          };
-        repo.stargazers = [];
+//         var userStarGazersURL = 'https://api.github.com/repos/' + req.params.username + '/' + repo.name + '/stargazers';
+//         console.log(userStarGazersURL);
+//           var options = {
+//             url: userStarGazersURL,
+//             headers: {
+//               'User-Agent': 'vealjoshua'
+//             }
+//           };
+//         repo.stargazers = [];
 
-        request.get(options, function(error, response, body) {
-              if (error) {
-                callback(error, null);
-                console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-                return;
-              }
+//         request.get(options, function(error, response, body) {
+//               if (error) {
+//                 callback(error, null);
+//                 console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+//                 return;
+//               }
 
-              var jsonObj = JSON.parse(body);
-              for (var i = 0; i < jsonObj.length && i < 3; i++) {
-                repo.stargazers.push(jsonObj[i]);
-                starGazers.push(jsonObj[i]);
-              }
+//               var jsonObj = JSON.parse(body);
+//               for (var i = 0; i < jsonObj.length && i < 3; i++) {
+//                 repo.stargazers.push(jsonObj[i]);
+//                 starGazers.push(jsonObj[i]);
+//               }
 
-              callback();
-        });
-      }, function(err) {
-            if (err) {
-              console.log("Async each failed.");
-            } else {
-              res.send(userRepos);
-            }
-        });
-    }
-  ], function(err, result) {
-        if (err) {
-          console.error(err);
-          return;
-        }
+//               callback();
+//         });
+//       }, function(err) {
+//             if (err) {
+//               console.log("Async each failed.");
+//             } else {
+//               res.send(userRepos);
+//             }
+//         });
+//     }
+//   ], function(err, result) {
+//         if (err) {
+//           console.error(err);
+//           return;
+//         }
         
-        console.log(result);
-        res.send(result);
-    });
-});
+//         console.log(result);
+//         res.send(result);
+//     });
+// });
 
-app.listen(8090);
+app.listen(8080);
