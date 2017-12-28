@@ -28,9 +28,9 @@ The bonus challenge NOT required!
 
 ## Invocation
 
-Run nodemon server.js in the home directory.
+Clone the project and run nodemon server.js in the home directory.
 
-Or just visit: http://github-data-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com
+Or just visit: http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/
 
 ### Github Followers
 
