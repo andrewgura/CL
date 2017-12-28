@@ -42,7 +42,7 @@ Where "username" is the github username.
 
 ##### e.g.
 
-http://github-data-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/followers
+http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/followers
 
 ### Github Repos
 
@@ -54,4 +54,4 @@ Where "username" is the github username.
 
 ##### e.g.
 
-http://github-data-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/repos
+http://get-github-followers-cl-coding-challenge.193b.starter-ca-central-1.openshiftapps.com/octocat/repos
