@@ -4,8 +4,7 @@ var request = require('request');
 var async = require('async');
 
 app.get('/', function(req, res){
-   res.send("Hello world!");
-
+  res.sendFile(__dirname + '/README.md');
 });
 
 var firstLevelGithubFollowers = [];
